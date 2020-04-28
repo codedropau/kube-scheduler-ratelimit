@@ -15,3 +15,10 @@ This approach gives us the benefit of a custom scheduler as well as all the exis
 
 ## Installation
 
+```bash
+kubectl apply -f deploy/
+```
+
+## Usage
+
+See the [example](example/pods.yaml) for Pod configuration.
