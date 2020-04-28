@@ -1,49 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    component: scheduler
-    tier: control-plane
   name: kube-scheduler-ratelimit
   namespace: kube-system
 spec:
   selector:
     matchLabels:
-      component: scheduler
-      tier: control-plane
+      app: kube-scheduler-ratelimit
   replicas: 1
   template:
     metadata:
       labels:
-        component: scheduler
-        tier: control-plane
-        version: second
+        app: kube-scheduler-ratelimit
     spec:
       serviceAccountName: kube-scheduler-ratelimit
       containers:
-        - command:
-            - /usr/local/bin/kube-scheduler-ratelimit
-            - --address=0.0.0.0
-            - --leader-elect=false
-            - --scheduler-name=ratelimit
-            - --v=2
+        - name: scheduler
           image: codedropau/kube-scheduler-ratelimit:latest
+          command:
+            - /usr/local/bin/kube-scheduler-ratelimit
+            - --config=/etc/scheduler/config.yaml
           livenessProbe:
             httpGet:
               path: /healthz
               port: 10251
             initialDelaySeconds: 15
-          name: kube-second-scheduler
           readinessProbe:
             httpGet:
               path: /healthz
               port: 10251
-          resources:
-            requests:
-              cpu: '0.1'
-          securityContext:
-            privileged: false
-          volumeMounts: []
+          volumeMounts:
+            - name: config
+              mountPath: /etc/scheduler
       hostNetwork: false
       hostPID: false
-      volumes: []
+      volumes:
+        - name: config
+          configMap:
+            name: kube-scheduler-ratelimit

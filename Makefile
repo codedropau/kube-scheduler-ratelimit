@@ -24,4 +24,12 @@ lint:
 test:
 	go test -cover ./...
 
+IMAGE=codedropau/kube-scheduler-ratelimit
+
+# Release the scheduler as a Docker image.
+release:
+	docker build -t ${IMAGE}:${VERSION} -t ${IMAGE}:latest .
+	docker push ${IMAGE}:${VERSION}
+	docker push ${IMAGE}:latest
+
 .PHONY: *
