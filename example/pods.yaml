@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: background-task-
+  annotations:
+    kube-scheduler-ratelimit/limit: "2"
+    kube-scheduler-ratelimit/query: "task=background"
+  labels:
+    task: background
+spec:
+  schedulerName: ratelimit
+  restartPolicy: Never
+  containers:
+    - name: cmd
+      image: busybox
+      command:
+        - /bin/sh
+        - -c
+        - "sleep 30"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: background-task-
+  annotations:
+    kube-scheduler-ratelimit/limit: "2"
+    kube-scheduler-ratelimit/query: "task=background"
+  labels:
+    task: background
+spec:
+  schedulerName: ratelimit
+  restartPolicy: Never
+  containers:
+    - name: cmd
+      image: busybox
+      command:
+        - /bin/sh
+        - -c
+        - "sleep 30"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  generateName: background-task-
+  annotations:
+    kube-scheduler-ratelimit/limit: "2"
+    kube-scheduler-ratelimit/query: "task=background"
+  labels:
+    task: background
+spec:
+  schedulerName: ratelimit
+  restartPolicy: Never
+  containers:
+    - name: cmd
+      image: busybox
+      command:
+        - /bin/sh
+        - -c
+        - "sleep 30"

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  server:
+    image: rancher/k3s:latest
+    command: server --node-name=server --no-deploy=traefik --no-deploy=servicelb
+    privileged: true
+    ports:
+      - "6443:6443"
+    environment:
+      - K3S_TOKEN=skpr
+      - K3S_KUBECONFIG_OUTPUT=/root/.kube/config
+      - K3S_KUBECONFIG_MODE=666
+    tmpfs:
+      - /run
+      - /var/run
+    volumes:
+      - ./.kube:/root/.kube
