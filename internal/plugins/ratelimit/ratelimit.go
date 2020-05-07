@@ -59,7 +59,7 @@ func (pl *Plugin) Permit(ctx context.Context, state *framework.CycleState, pod *
 	count := len(running) + 1
 
 	if count > limit {
-		return framework.NewStatus(framework.Wait, fmt.Sprintf("rate limiting has been triggered, query %s returns %d running Pods", query, count)), retry
+		return framework.NewStatus(framework.Skip, fmt.Sprintf("rate limiting has been triggered, query %s returns %d running Pods", query, count)), retry
 	}
 
 	err = pl.TagPod(ctx, pod)
