@@ -22,3 +22,9 @@ kubectl apply -f deploy/
 ## Usage
 
 See the [example](example/pods.yaml) for Pod configuration.
+
+## Resources
+
+This is a great example repository to draw inspiration from:
+
+https://github.com/kubernetes-sigs/scheduler-plugins
